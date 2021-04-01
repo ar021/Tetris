@@ -1,24 +1,27 @@
 const gameBoard = document.querySelector('.game-board');
-const cellsArray = document.querySelectorAll('.game-board div');
+let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
 console.log(gameBoard);
 console.log(cellsArray);
 
-const bWidth = 5;
-let currentPosition = 0;
+const bWidth = 10;
+let currentPosition = 4;
 
 // Tetros
-const lTetro = [0,0+bWidth, (0+bWidth)*2, (0+bWidth)*2+1];
+const lTetro = [1,1+bWidth, 1+(bWidth*2), 2+(bWidth*2)];
 console.log(lTetro);
 
 // Function
 function render(){
+    console.log('render run');
     lTetro.forEach(function(i){
         cellsArray[currentPosition + i].classList.add('cell');
     });
+
 }
 render();
 
 function unRender(){
+    console.log('unRender run');
     lTetro.forEach(function(i){
         cellsArray[currentPosition + i].classList.remove('cell');
     });
@@ -26,7 +29,9 @@ function unRender(){
 // unRender();
 
 function moveDown(){
+    console.log('movedown run');
     unRender();
+    // console.log(lTetro);
     console.log(`before ${currentPosition}`);
     // if(currentPosition<35){
     //     currentPosition = currentPosition + 5;
@@ -35,7 +40,7 @@ function moveDown(){
     //     currentPosition = 0;
     // }
     // console.log(`After: ${currentPosition}`);
-    currentPosition = currentPosition + 5;
+    currentPosition = currentPosition + bWidth;
     render();
     stop();
 }
@@ -45,17 +50,22 @@ var intervalId = window.setInterval(function(){
     moveDown();
   }, 1000);
 
-// function stop(){
-//     const w = 5; 
-//     function stopDecider(){
-//       let s = lTetro.some(function(i){
-//         return cellsArray[i+w].hasAttribute('class','stop');
-//         console.log(cellsArray[i+w]);
-//         });
-//         return s;
-//     };
-//     if(stopDecider){
-//         clearInterval(intervalId);  
-//     }
-//     else return;
-// }
+function stop(){
+    console.log('stop run');
+    function stopDecider(){
+      return lTetro.some(function(i){
+        // return cellsArray[currentPosition + i + w].hasAttribute('class','stop');
+        // console.log(cellsArray[currentPosition + i + w]);
+        console.log('stopDecider run');
+        return cellsArray[currentPosition + i + bWidth].classList.contains('stop');
+        });
+    };
+    if(stopDecider()){
+        lTetro.forEach(function(i){
+            cellsArray[currentPosition + i].classList.add('stop');
+        });
+        currentPosition = 4;
+        render();
+    }
+    return;
+}
