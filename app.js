@@ -121,7 +121,7 @@ function filled(){
         return cellsArray[currentPosition + i ].classList.contains('stop');
     });
 }
-
+//To-do Test left function, look for keyboard event listener
 function left(){
     unRender();
     function leftDecider(){
