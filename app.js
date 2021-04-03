@@ -53,6 +53,19 @@ document.addEventListener('keydown',function(e){
         console.log(`Key${e.code} has pressed`);
         leftMove();
     }
+    if(e.key === 'ArrowRight'){
+        console.log(`Key${e.code} has pressed`);
+        rightMove();
+    }
+    if(e.key === 'ArrowDown'){
+        console.log(`Key${e.code} has pressed`);
+        downMove();
+    }
+    if(e.key === 'ArrowUp'){
+        console.log(`Key${e.code} has pressed`);
+        e.preventDefault();
+        rotate();
+    }
     return;
 });
 
@@ -122,37 +135,101 @@ function stop(){
     }
     return;
 }
+// Move - Left
+function filledLeft(){
+    return  currentTetro.some(function(i){
+          console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
+          return cellsArray[currentPosition + i ].classList.contains('stop');
+      });
+};
 
+function leftDecider(){
+    return currentTetro.some(function(i){
+    //   console.log('leftDecider run');-------
+      return (currentPosition + i) % bWidth === 0;
+    });
+};
 
-//To-do Test left function, look for keyboard event listener
 function leftMove(){
     unRender();
-    const isAtLeftEdge = currentTetro.some(index => (currentPosition + index) % bWidth === 0)
-    if (!isAtLeftEdge) currentPosition -= 1
-    if (currentTetro.some(index => cellsArray[currentPosition + index].classList.contains('stop'))) {
-      currentPosition += 1
-    };
     
-    // mytry----->
-    // function leftDecider(){
-    //     return currentTetro.some(function(i){
-    //     //   console.log('leftDecider run');-------
-    //       return (currentPosition + i) % bWidth === 0;
-    //     });
-    // }
-    // if(!leftDecider()){
-    //     currentPosition = currentPosition - 1; 
-    // }
-    // // function filled(){
-    // //     currentTetro.some(function(i){
-    // //         console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
-    // //         return cellsArray[currentPosition + i ].classList.contains('stop');
-    // //     });
-    // // }
+    if(!leftDecider()){
+        currentPosition = currentPosition - 1; 
+    }
+    
+    if(filledLeft()){
     // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
-    //     currentPosition = currentPosition + 1;
-    // };
+        console.log(`b${currentPosition}`);
+        currentPosition = currentPosition + 1;
+        console.log(`a${currentPosition}`);   
+    };
     // mytry<-----
-
     render();
 };
+
+// Move-Right
+function filledRight(){
+    return  currentTetro.some(function(i){
+          console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
+          return cellsArray[currentPosition + i ].classList.contains('stop');
+      });
+};
+
+function rightDecider(){
+    return currentTetro.some(function(i){
+    //   console.log('leftDecider run');-------
+      return (currentPosition + i) % bWidth === (bWidth-1);
+    });
+};
+
+function rightMove(){
+    unRender();
+    
+    if(!rightDecider()){
+        currentPosition = currentPosition + 1; 
+    }
+    
+    if(filledRight()){
+    // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
+        console.log(`b${currentPosition}`);
+        currentPosition = currentPosition - 1;
+        console.log(`a${currentPosition}`);  
+    };
+    // mytry<-----
+    render();
+};
+function downMove(){
+    unRender();
+    currentPosition = currentPosition + bWidth;
+    render();
+}
+
+// Rotate
+function rotate(){
+    unRender();
+ 
+    if(currentRoatation<3){
+        currentRoatation = currentRoatation +1;
+    }
+    else{
+        currentRoatation = 0;
+    }
+    
+    // if(currentTetro===tTetro[2]){
+    //     currentPosition = currentPosition + 1; 
+    // }
+    // if(currentTetro===lTetro[3]){
+    //     currentPosition = currentPosition + 1; 
+    // }
+    // if(currentTetro===iTetro[1]){
+    //     currentPosition = currentPosition + 1; 
+    // }
+    // while(leftDecider()){
+    //     currentPosition = currentPosition + 1;    
+    // }
+    // while(rightDecider()){
+    //     currentPosition = currentPosition - 1;
+    // }
+    currentTetro = tetros[random][currentRoatation];
+    render();
+}
