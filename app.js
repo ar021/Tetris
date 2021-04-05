@@ -205,8 +205,40 @@ function downMove(){
 }
 
 // Rotate
+function checkRotatedPosition(P){
+    P = P || currentPosition       //get current position.  Then, check if the piece is near the left side.
+    if ((P+1) % bWidth < 4) {         //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).     
+      if (rightDecider()){            //use actual position to check if it's flipped over to right side
+        currentPosition += 1    //if so, add one to wrap it back around
+        checkRotatedPosition(P) //check again.  Pass position from start, since long block might need to move more.
+        }
+    }
+    else if (P % bWidth > 5) {
+      if (leftDecider()){
+        currentPosition -= 1
+      checkRotatedPosition(P)
+      }
+    }
+}
+// function checkEdge(cp){
+//     if((cp+1)%bWidth < 4 ){
+//         if(rightDecider()){
+//             currentPosition = currentPosition +1;
+//             checkEdge(cp);
+//         }
+//     }
+//     else if(cp%bWidth >5){
+//         if(leftDecider()){
+//             currentPosition = currentPosition -1;
+//             checkEdge(cp);
+//         }
+//     }
+
+// }
+
 function rotate(){
     unRender();
+
  
     if(currentRoatation<3){
         currentRoatation = currentRoatation +1;
@@ -215,21 +247,19 @@ function rotate(){
         currentRoatation = 0;
     }
     
-    // if(currentTetro===tTetro[2]){
-    //     currentPosition = currentPosition + 1; 
+   
+    // if(currentPosition < 4){
+    //     while(rightDecider()){
+    //         currentPosition = currentPosition + 1;
+    //     } 
     // }
-    // if(currentTetro===lTetro[3]){
-    //     currentPosition = currentPosition + 1; 
+    // if(currentPosition > 5){
+    //     while(leftDecider()){
+    //         currentPosition = currentPosition + 1;
+    //     } 
     // }
-    // if(currentTetro===iTetro[1]){
-    //     currentPosition = currentPosition + 1; 
-    // }
-    // while(leftDecider()){
-    //     currentPosition = currentPosition + 1;    
-    // }
-    // while(rightDecider()){
-    //     currentPosition = currentPosition - 1;
-    // }
+    
     currentTetro = tetros[random][currentRoatation];
+    checkRotatedPosition();
     render();
 }
