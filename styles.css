@@ -7,13 +7,16 @@ body{
     height: 400px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
 }
 .game-board div{
+    
     width: 20px;
     height: 20px;
 }
 
 .cell{
-    background-color: rgb(215, 123, 238);  
+    background-color: rgb(215, 123, 238);
+    border: solid 1px rgb(219, 200, 200);  
 }

@@ -75,6 +75,8 @@ document.addEventListener('keydown',function(e){
 
 
 // Function
+
+
 function render(){
     // console.log('render run');
     currentTetro.forEach(function(i){
@@ -104,6 +106,7 @@ function moveDown(){
     //     currentPosition = 0;
     // }
     // console.log(`After: ${currentPosition}`);
+    
     currentPosition = currentPosition + bWidth;
     render();
     stop();
@@ -135,7 +138,9 @@ function stop(){
     }
     return;
 }
+
 // Move - Left
+
 function filledLeft(){
     return  currentTetro.some(function(i){
           console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
@@ -152,22 +157,20 @@ function leftDecider(){
 
 function leftMove(){
     unRender();
-    
     if(!leftDecider()){
         currentPosition = currentPosition - 1; 
     }
-    
     if(filledLeft()){
     // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
         console.log(`b${currentPosition}`);
         currentPosition = currentPosition + 1;
         console.log(`a${currentPosition}`);   
     };
-    // mytry<-----
     render();
 };
 
 // Move-Right
+
 function filledRight(){
     return  currentTetro.some(function(i){
           console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
@@ -184,18 +187,15 @@ function rightDecider(){
 
 function rightMove(){
     unRender();
-    
     if(!rightDecider()){
         currentPosition = currentPosition + 1; 
     }
-    
     if(filledRight()){
     // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
         console.log(`b${currentPosition}`);
         currentPosition = currentPosition - 1;
         console.log(`a${currentPosition}`);  
     };
-    // mytry<-----
     render();
 };
 function downMove(){
@@ -205,61 +205,29 @@ function downMove(){
 }
 
 // Rotate
-function checkRotatedPosition(P){
-    P = P || currentPosition       //get current position.  Then, check if the piece is near the left side.
-    if ((P+1) % bWidth < 4) {         //add 1 because the position index can be 1 less than where the piece is (with how they are indexed).     
-      if (rightDecider()){            //use actual position to check if it's flipped over to right side
-        currentPosition += 1    //if so, add one to wrap it back around
-        checkRotatedPosition(P) //check again.  Pass position from start, since long block might need to move more.
+
+function checkEdge(){
+    if((currentPosition + 1) % bWidth < 4 ){
+        while(rightDecider()){
+            currentPosition = currentPosition +1;
         }
     }
-    else if (P % bWidth > 5) {
-      if (leftDecider()){
-        currentPosition -= 1
-      checkRotatedPosition(P)
-      }
+    else if( currentPosition % bWidth >5){
+        while(leftDecider()){
+            currentPosition = currentPosition -1;
+        }
     }
 }
-// function checkEdge(cp){
-//     if((cp+1)%bWidth < 4 ){
-//         if(rightDecider()){
-//             currentPosition = currentPosition +1;
-//             checkEdge(cp);
-//         }
-//     }
-//     else if(cp%bWidth >5){
-//         if(leftDecider()){
-//             currentPosition = currentPosition -1;
-//             checkEdge(cp);
-//         }
-//     }
-
-// }
 
 function rotate(){
     unRender();
-
- 
     if(currentRoatation<3){
         currentRoatation = currentRoatation +1;
     }
     else{
         currentRoatation = 0;
     }
-    
-   
-    // if(currentPosition < 4){
-    //     while(rightDecider()){
-    //         currentPosition = currentPosition + 1;
-    //     } 
-    // }
-    // if(currentPosition > 5){
-    //     while(leftDecider()){
-    //         currentPosition = currentPosition + 1;
-    //     } 
-    // }
-    
     currentTetro = tetros[random][currentRoatation];
-    checkRotatedPosition();
+    checkEdge();
     render();
 }
