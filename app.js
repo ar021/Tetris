@@ -50,19 +50,19 @@ let currentTetro = tetros[random][currentRoatation];
 document.addEventListener('keydown',function(e){
     
     if(e.key === 'ArrowLeft'){
-        console.log(`Key${e.code} has pressed`);
+        // console.log(`Key${e.code} has pressed`);
         leftMove();
     }
     if(e.key === 'ArrowRight'){
-        console.log(`Key${e.code} has pressed`);
+        // console.log(`Key${e.code} has pressed`);
         rightMove();
     }
     if(e.key === 'ArrowDown'){
-        console.log(`Key${e.code} has pressed`);
+        // console.log(`Key${e.code} has pressed`);
         downMove();
     }
     if(e.key === 'ArrowUp'){
-        console.log(`Key${e.code} has pressed`);
+        // console.log(`Key${e.code} has pressed`);
         e.preventDefault();
         rotate();
     }
@@ -98,7 +98,7 @@ function moveDown(){
     // console.log('movedown run');--------
     unRender();
     // console.log(lTetro);
-    console.log(`before ${currentPosition}`);
+    // console.log(`before ${currentPosition}`);
     // if(currentPosition<35){
     //     currentPosition = currentPosition + 5;
         
@@ -110,6 +110,7 @@ function moveDown(){
     currentPosition = currentPosition + bWidth;
     render();
     stop();
+    
 }
 
 
@@ -117,31 +118,32 @@ var intervalId = window.setInterval(function(){
     moveDown();
   }, 500);
 
+function stopDecider(){
+    return currentTetro.some(function(i){
+      // return cellsArray[currentPosition + i + w].hasAttribute('class','stop');
+      // console.log(cellsArray[currentPosition + i + w]);
+      // console.log('stopDecider run'); -----
+      return cellsArray[currentPosition + i + bWidth].classList.contains('stop');
+      });
+};
+
 function stop(){
     // console.log('stop run');-----------
-    function stopDecider(){
-      return currentTetro.some(function(i){
-        // return cellsArray[currentPosition + i + w].hasAttribute('class','stop');
-        // console.log(cellsArray[currentPosition + i + w]);
-        // console.log('stopDecider run'); -----
-        return cellsArray[currentPosition + i + bWidth].classList.contains('stop');
-        });
-    };
+    
     if(stopDecider()){
         currentTetro.forEach(function(i){
             cellsArray[currentPosition + i].classList.add('stop');
-        });
+    });
         currentPosition = 6;
         random = Math.floor(Math.random() * tetros.length);
         currentTetro = tetros[random][currentRoatation];
         render();
     }
-    return;
 }
 
 // Move - Left
 
-function filledLeft(){
+function filledLeftCell(){
     return  currentTetro.some(function(i){
           console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
           return cellsArray[currentPosition + i ].classList.contains('stop');
@@ -160,18 +162,19 @@ function leftMove(){
     if(!leftDecider()){
         currentPosition = currentPosition - 1; 
     }
-    if(filledLeft()){
+    if(filledLeftCell()){
     // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
         console.log(`b${currentPosition}`);
         currentPosition = currentPosition + 1;
         console.log(`a${currentPosition}`);   
     };
     render();
+    stop();
 };
 
 // Move-Right
 
-function filledRight(){
+function filledRightCell(){
     return  currentTetro.some(function(i){
           console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
           return cellsArray[currentPosition + i ].classList.contains('stop');
@@ -190,18 +193,23 @@ function rightMove(){
     if(!rightDecider()){
         currentPosition = currentPosition + 1; 
     }
-    if(filledRight()){
+    if(filledRightCell()){
     // if(currentTetro.some(i => cellsArray[currentPosition + i].classList.contains('stop'))){
         console.log(`b${currentPosition}`);
         currentPosition = currentPosition - 1;
         console.log(`a${currentPosition}`);  
     };
     render();
+    stop();
 };
+
 function downMove(){
     unRender();
     currentPosition = currentPosition + bWidth;
+    
     render();
+    stop();
+
 }
 
 // Rotate
@@ -230,4 +238,17 @@ function rotate(){
     currentTetro = tetros[random][currentRoatation];
     checkEdge();
     render();
+}
+
+// Filled row
+
+function filledRow(){
+    let n = parseInt(currentPosition/bWidth) * bWidth;
+    let m = n + bWidth;
+    let currentRow = cellsArray.splice(n,m);
+    console.log(currentRow);
+    // for ( n; n < m; n++){
+    //     const occupied = cellsArray[n].classList.contains('stop');
+    //     console.log(`N: ${n} M: ${m}`);
+    // }
 }
