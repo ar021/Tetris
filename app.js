@@ -131,13 +131,15 @@ function stop(){
     // console.log('stop run');-----------
     
     if(stopDecider()){
+        filledRow();
         currentTetro.forEach(function(i){
             cellsArray[currentPosition + i].classList.add('stop');
-    });
+        });
         currentPosition = 6;
         random = Math.floor(Math.random() * tetros.length);
         currentTetro = tetros[random][currentRoatation];
         render();
+        
     }
 }
 
@@ -145,7 +147,7 @@ function stop(){
 
 function filledLeftCell(){
     return  currentTetro.some(function(i){
-          console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
+        //   console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
           return cellsArray[currentPosition + i ].classList.contains('stop');
       });
 };
@@ -176,7 +178,7 @@ function leftMove(){
 
 function filledRightCell(){
     return  currentTetro.some(function(i){
-          console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
+        //   console.log(`${cellsArray[currentPosition + i ].classList.contains('stop')}`);
           return cellsArray[currentPosition + i ].classList.contains('stop');
       });
 };
@@ -241,14 +243,24 @@ function rotate(){
 }
 
 // Filled row
+let currentRow;
 
 function filledRow(){
+    console.log(currentPosition);
     let n = parseInt(currentPosition/bWidth) * bWidth;
     let m = n + bWidth;
-    let currentRow = cellsArray.splice(n,m);
-    console.log(currentRow);
-    // for ( n; n < m; n++){
-    //     const occupied = cellsArray[n].classList.contains('stop');
-    //     console.log(`N: ${n} M: ${m}`);
-    // }
+    // currentRow = cellsArray.slice(n,m);
+    // let result = currentRow.every(i => i.classList.contains('stop'))
+    // console.log(`${n},,${m}...${result}`);
+    
+    // currentRow.forEach(function(i){
+    //     const cls = i.classList;
+    //     console.log(cls);
+    // })
+    let currentRowArray= [];
+    for ( n; n < m; n++){
+        const occupied = cellsArray[n].classList.contains('stop');
+        currentRowArray.push(occupied);
+    }
+    console.log(`${n},,${m}...${currentRowArray}`);
 }
