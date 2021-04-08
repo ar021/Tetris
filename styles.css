@@ -1,13 +1,17 @@
 body{
     background-color: aqua;
 }
+.display-container{
+    display: flex;
+    justify-content: space-around;
+
+}
 .game-board{
     background-color: rgb(180, 216, 81);
     width: 200px;
     height: 400px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 
 }
 .game-board div{
@@ -19,4 +23,18 @@ body{
 .cell{
     background-color: rgb(215, 123, 238);
     border: solid 1px rgb(219, 200, 200);  
+}
+
+.next-game-board{
+    background-color: rgb(180, 216, 81);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.next-game-board div{
+    
+    width: 20px;
+    height: 20px;
 }
