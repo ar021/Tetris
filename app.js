@@ -1,9 +1,9 @@
 const gameBoard = document.querySelector('.game-board');
 let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
-let nextCellsArray = Array.from(document.querySelectorAll('.next-game-board div'));
+
 // console.log(gameBoard);
 // console.log(cellsArray);
-
+let score = 0;
 const bWidth = 10;
 
 
@@ -132,18 +132,17 @@ function stop(){
     // console.log('stop run');-----------
     
     if(stopDecider()){
-        // filledRow();
         currentTetro.forEach(function(i){
             cellsArray[currentPosition + i].classList.add('stop');
         });
         currentPosition = 6;
         random = Math.floor(Math.random() * tetros.length);
         currentTetro = tetros[random][currentRoatation];
+        scoreRow()
         gameOver();
         render();
-        nextRender();
-        
-        
+        nextUnRender();
+        nextRender(); 
     }
 }
 stop();
@@ -247,27 +246,52 @@ function rotate(){
     render();
 }
 
-// Score row
+// Score rows
 let currentRow;
 
-function filledRow(){
-    console.log(currentPosition);
-    let n = parseInt(currentPosition/bWidth) * bWidth;
-    let m = n + bWidth;
-    // currentRow = cellsArray.slice(n,m);
-    // let result = currentRow.every(i => i.classList.contains('stop'))
-    // console.log(`${n},,${m}...${result}`);
-    
-    // currentRow.forEach(function(i){
-    //     const cls = i.classList;
-    //     console.log(cls);
-    // })
-    let currentRowArray= [];
-    for ( n; n < m; n++){
-        const occupied = cellsArray[n].classList.contains('stop');
-        currentRowArray.push(occupied);
-    }
-    console.log(`${n},,${m}...${currentRowArray}`);
+function scoreRow(){
+    for (i = 0; i < 200; i += 10) {
+        const filledrow = [i, i+1, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
+        let scoreRowDecider = filledrow.every(index => cellsArray[index].classList.contains('stop'));
+        if (scoreRowDecider) {
+          score = score + 10;
+       
+        filledrow.forEach(index => {
+            cellsArray[index].classList.remove('stop','cell');
+        })
+          const cellsRemoved = cellsArray.splice(i, bWidth)
+          cellsArray = cellsRemoved.concat(cellsArray)
+          cellsArray.forEach(cell => gameBoard.appendChild(cell))
+        }
+      }
+
+
+
+    // for(let i=0; i<199; i=i+10){
+    //     console.log('run');
+    //     const filledRow = [i, i+1, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
+    //     // for(let j=0; j<bWidth; j++){
+    //     //     filledRow.push(i+j);
+    //     // }
+    //     let scoreRowDecider = filledRow.every(function(i){
+    //         cellsArray[i].classList.contains('stop');
+    //     });
+    //     console.log(scoreRowDecider);
+    //     if(scoreRowDecider){
+    //         score = score + 100;
+    //         console.log(score);
+    //     }
+    // }
+
+//     console.log(currentPosition);
+//     let n = parseInt(currentPosition/bWidth) * bWidth;
+//     let m = n + bWidth;
+//     let currentRowArray= [];
+//     for ( n; n < m; n++){
+//         const occupied = cellsArray[n].classList.contains('stop');
+//         currentRowArray.push(occupied);
+//     }
+//     console.log(`${n},,${m}...${currentRowArray}`);
 }
 
 //Game Over function
@@ -287,19 +311,33 @@ function gameOver(){
 
 
 
-// Next Tetro Display
+// Next Tetro Display-------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
 
-const nextTetrosArray = [lTetro[0], iTetro[0], tTetro[0], zTetro[0], oTetro[0]];
+let nextCellsArray = Array.from(document.querySelectorAll('.next-game-board div'));
+const nextBWidth = 4;
+const nextTetros = [
+    [1, nextBWidth + 1, nextBWidth * 2 + 1, 2],
+    [1, nextBWidth + 1, nextBWidth * 2 + 1, nextBWidth * 3 + 1],
+    [1, nextBWidth, nextBWidth + 1, nextBWidth + 2],
+    [0, nextBWidth, nextBWidth + 1, nextBWidth * 2 + 1],
+    [0, 1, nextBWidth, nextBWidth + 1]
+];
 let nextPosition = 0;
-const nextTetro = nextTetrosArray[random]
+const nextTetro = nextTetros[random]
 
 function nextRender(){
-    nextCellsArray.forEach(function(i){
-        i.classList.remove('cell');
-    })
-    // console.log('render run');
+    
     nextTetro.forEach(function(i){
         nextCellsArray[nextPosition + i].classList.add('cell');
+        // console.log(i.classList);
+    });
+}
+
+function nextUnRender(){
+    nextCellsArray.forEach(function(ie){
+        ie.classList.remove('cell');
+        // console.log(ie.classList);
     });
 }
 
