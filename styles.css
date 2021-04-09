@@ -2,39 +2,79 @@ body{
     background-color: aqua;
 }
 .display-container{
+    /* background-color: burlywood; */
     display: flex;
     justify-content: space-around;
 
 }
 .game-board{
-    background-color: rgb(180, 216, 81);
-    width: 200px;
-    height: 400px;
+    background-color: black;
+    /* background-color: rgb(180, 216, 81); */
+    width: 300px;
+    height: 600px;
     display: flex;
     flex-wrap: wrap;
 
 }
 .game-board div{
     
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    
+}
+.info-board{
+    background-color: black;
+    /* background-color: rgb(180, 216, 81); */
+    width: 300px;
+    height: 600px;
+    /* display: flex;
+    flex-wrap: wrap; */
+
 }
 
-.cell{
+.cell-l{
     background-color: rgb(215, 123, 238);
-    border: solid 1px rgb(219, 200, 200);  
+    border: solid 3px rgb(168, 43, 199);
+    border-radius: 5px;  
 }
+.cell-i{
+    background-color: rgb(237, 198, 71);
+    border: solid 3px rgb(181, 140, 6);
+    border-radius: 5px;  
+}
+.cell-t{
+    background-color: rgb(160, 230, 47);
+    border: solid 3px rgb(110, 175, 6);
+    border-radius: 5px;  
+}
+.cell-z{
+    background-color: rgb(32, 186, 221);
+    border: solid 3px rgb(4, 91, 110);
+    border-radius: 5px;  
+}
+.cell-o{
+    background-color: rgb(232, 136, 34);
+    border: solid 3px rgb(158, 84, 4);
+    border-radius: 5px;  
+}
+
 
 .next-game-board{
-    background-color: rgb(180, 216, 81);
-    width: 80px;
-    height: 80px;
+    background-color: black;
+    width: 120px;
+    height: 120px;
     display: flex;
     flex-wrap: wrap;
 }
 
 .next-game-board div{
     
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+}
+.jumbotron {
+    height: 200px;
+}
+.score-display{
+
 }
