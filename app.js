@@ -1,6 +1,7 @@
 const gameBoard = document.querySelector('.game-board');
 let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
 const playBtn = document.querySelector('button');
+const scoreDisplay = document.querySelector('.score-display span');
 let intervalId;
 
 
@@ -289,7 +290,8 @@ function scoreRow(){
         const filledrow = [i, i+1, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
         let scoreRowDecider = filledrow.every(index => cellsArray[index].classList.contains('stop'));
         if (scoreRowDecider) {
-          score = score + 10;
+          score = score + 100;
+          scoreDisplay.innerHTML = score;
        
         filledrow.forEach(index => {
             cellsArray[index].classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o');
@@ -338,7 +340,8 @@ function gameOver(){
         });
     };
     if(gameOverDecider()){
-        console.log('Game Over');
+        console.log('GAME OVER');
+        scoreDisplay.innerHTML = 'GAME OVER';
         document.removeEventListener('keydown',controls);
         clearInterval(intervalId);
     }
