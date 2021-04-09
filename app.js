@@ -59,7 +59,7 @@ playBtn.addEventListener('click', function(){
     } else {
       render();
       intervalId = setInterval(moveDown, 750);
-      random = Math.floor(Math.random() * tetros.length);
+    //   random = Math.floor(Math.random() * tetros.length);
       nextRender();
     }
 });
