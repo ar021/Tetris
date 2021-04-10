@@ -196,11 +196,12 @@ function stop(){
         random = Math.floor(Math.random() * tetros.length);
         currentTetro = tetros[random][currentRoatation];
         scoreRow();
+        gameOver();
         render();
         nextUnRender();
         nextRender();
         
-        gameOver(); 
+         
     }
 }
 stop();
