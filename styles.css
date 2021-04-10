@@ -109,6 +109,8 @@ h1{
     font-size: 30px;
     color: white;
     margin: auto;
+    margin-top: 50px;
+    
 }
 
 .buttons{
@@ -116,10 +118,20 @@ h1{
     justify-content: space-around;
 }
 
-#play-button {
+.play-button {
     background-image: linear-gradient( 160deg, #ff0000, #ec008c );
     color: white;
     margin-right: 20px;    
+}
+
+.instruction-button{
+    background-image: linear-gradient( 160deg, #ff0000, #ec008c );
+    color: white;  
+}
+
+.play-again {
+    background-image: radial-gradient( #66ff66, #33ccff );
+    color:blue;
 }
 
 .modal-content{
@@ -130,6 +142,8 @@ h1{
     font-size: 50px;
     color: rgb(231, 31, 31); 
 }
+
+
 
 
 

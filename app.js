@@ -1,6 +1,6 @@
 const gameBoard = document.querySelector('.game-board');
 let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
-const playBtn = document.querySelector('#play-button');
+const playBtn = document.querySelector('.play-button');
 // const instructionBtn = document.querySelector('.btn-c');
 const scoreDisplay = document.querySelector('.score-display .score');
 const linesDisplay = document.querySelector('.score-display .lines');
@@ -371,6 +371,7 @@ function gameOver(){
         clearInterval(intervalId);
         
         playBtn.innerText = 'Play Again';
+        playBtn.classList.add('play-again');
 
     }
 }
@@ -383,6 +384,7 @@ function clearGameBoard (){
     linesDisplay.innerHTML = 0;
     statusDisplay.innerText = 'YOUR SCORE';
     statusDisplay.classList.remove('game-over');
+    playBtn.classList.remove('play-again');
     // for( let i=0; i<17; i++){
     //     nextCellsArray[i].classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o');
     // }
