@@ -1,13 +1,17 @@
 const gameBoard = document.querySelector('.game-board');
 let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
-const playBtn = document.querySelector('button');
-const scoreDisplay = document.querySelector('.score-display span');
+const playBtn = document.querySelector('#play-button');
+// const instructionBtn = document.querySelector('.btn-c');
+const scoreDisplay = document.querySelector('.score-display .score');
+const linesDisplay = document.querySelector('.score-display .lines');
+const statusDisplay = document.querySelector('.score-display .status');
 let intervalId;
 
 
 // console.log(gameBoard);
 // console.log(cellsArray);
 let score = 0;
+let lines = 0;
 const bWidth = 10;
 
 
@@ -54,15 +58,32 @@ let currentTetro = tetros[random][currentRoatation];
 // Event listner
 
 playBtn.addEventListener('click', function(){
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-    } else {
-      render();
-      intervalId = setInterval(moveDown, 750);
-    //   random = Math.floor(Math.random() * tetros.length);
-      nextRender();
+    document.addEventListener('keydown',controls);
+    if(playBtn.innerText === 'Play/Pause'){
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+          } else {
+            render();
+            intervalId = setInterval(moveDown, 750);
+          //   random = Math.floor(Math.random() * tetros.length);
+            nextRender();
+          }
     }
+    else{
+        document.addEventListener('keydown',controls);
+        clearGameBoard();
+        currentPosition = 6;
+        random = Math.floor(Math.random() * tetros.length);
+        currentTetro = tetros[random][currentRoatation];
+        render();
+        nextRender();
+        intervalId = setInterval(moveDown, 750);
+        playBtn.innerText = 'Play/Pause'
+        score = 0;
+        lines = 0;
+    }
+    
 });
 
 
@@ -174,11 +195,12 @@ function stop(){
         currentPosition = 6;
         random = Math.floor(Math.random() * tetros.length);
         currentTetro = tetros[random][currentRoatation];
-        scoreRow()
-        gameOver();
+        scoreRow();
         render();
         nextUnRender();
-        nextRender(); 
+        nextRender();
+        
+        gameOver(); 
     }
 }
 stop();
@@ -291,7 +313,9 @@ function scoreRow(){
         let scoreRowDecider = filledrow.every(index => cellsArray[index].classList.contains('stop'));
         if (scoreRowDecider) {
           score = score + 100;
+          lines = lines + 1;
           scoreDisplay.innerHTML = score;
+          linesDisplay.innerHTML = lines;
        
         filledrow.forEach(index => {
             cellsArray[index].classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o');
@@ -341,10 +365,35 @@ function gameOver(){
     };
     if(gameOverDecider()){
         console.log('GAME OVER');
-        scoreDisplay.innerHTML = 'GAME OVER';
+        statusDisplay.innerText = 'GAME OVER';
+        statusDisplay.classList.add('game-over');
         document.removeEventListener('keydown',controls);
         clearInterval(intervalId);
+        
+        playBtn.innerText = 'Play Again';
+
     }
+}
+function clearGameBoard (){
+    for( let i=0; i<200; i++){
+        cellsArray[i].classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o');
+    }
+    nextUnRender();
+    scoreDisplay.innerHTML = 0;
+    linesDisplay.innerHTML = 0;
+    statusDisplay.innerText = 'YOUR SCORE';
+    statusDisplay.classList.remove('game-over');
+    // for( let i=0; i<17; i++){
+    //     nextCellsArray[i].classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o');
+    // }
+    // cellsArray.forEach(function(i){
+    //     if(i < 200){
+    //         i.classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o')
+    //     }
+    // });
+    // nextCellsArray.forEach(function(i){
+    //     i.classList.remove('stop','cell-l','cell-i','cell-t','cell-z','cell-o')
+    // });
 }
 
 
