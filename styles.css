@@ -1,19 +1,17 @@
 body{
     background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
-    /* background: radial-gradient(#33ccff 0%, #ff99cc 100%); */
     height: 100vh;
     font-family: 'Rajdhani', sans-serif;
     
 }
 .display-container{
-    /* background-color: burlywood; */
+
     display: flex;
     justify-content: space-around;
 
 }
 .game-board{
-    /* background-color: black; */
-    /* background-color: rgb(180, 216, 81); */
+    
     width: 300px;
     height: 600px;
     display: flex;
@@ -29,8 +27,7 @@ body{
     
 }
 .info-board{
-    /* background-color: black; */
-    /* background-color: rgb(180, 216, 81); */
+  
     width: 300px;
     height: 600px;
     align-items: center;
@@ -48,8 +45,7 @@ h1{
     letter-spacing: 30px;
     font-size: 150px ;
     font-weight: 800;
-    /* color: white;
-    text-shadow: 4px 4px 10px rgb(34, 33, 33); */
+    
     background-color: #565656;
   color: transparent;
   text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
@@ -75,7 +71,6 @@ h1{
 }
 .cell-z{
     background: radial-gradient( #99ccff 0%, #0066ff 100%);
-    /* background-color: rgb(32, 186, 221); */
     border: solid 3px rgb(4, 91, 110);
     border-radius: 5px;  
 }
@@ -87,7 +82,7 @@ h1{
 
 
 .next-game-board{
-    /* background-color: black; */
+    
     width: 120px;
     height: 120px;
     display: flex;
@@ -99,11 +94,9 @@ h1{
     width: 30px;
     height: 30px;
 }
-/* .jumbotron {
-    height: 200px;
-} */
+
 .score-display{
-    /* background: radial-gradient(#33ccff 0%, #ff99cc 100%); */
+    
     height: 200px;
     text-align: center;
     font-size: 30px;

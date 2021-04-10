@@ -1,15 +1,10 @@
 const gameBoard = document.querySelector('.game-board');
 let cellsArray = Array.from(document.querySelectorAll('.game-board div'));
 const playBtn = document.querySelector('.play-button');
-// const instructionBtn = document.querySelector('.btn-c');
 const scoreDisplay = document.querySelector('.score-display .score');
 const linesDisplay = document.querySelector('.score-display .lines');
 const statusDisplay = document.querySelector('.score-display .status');
 let intervalId;
-
-
-// console.log(gameBoard);
-// console.log(cellsArray);
 let score = 0;
 let lines = 0;
 const bWidth = 10;
