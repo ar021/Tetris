@@ -3,7 +3,7 @@
 
 # TETRIS - BROWSER BASED GAME  🎮 🎲
 
-### This is classic Tetris game. It is the addictive puzzle game embracing our universal desire to create order out of chaos....  The goal of Tetris is to score as many points as possible by clearing horizontal lines of Blocks.  *Possiblity* *of* *some* *twists* *comming* *in* *near* *future*...🙊
+#### This is classic Tetris game. It is the addictive puzzle game embracing our universal desire to create order out of chaos....  The goal of Tetris is to score as many points as possible by clearing horizontal lines of Blocks.  *Possiblity* *of* *some* *twists* *comming* *in* *near* *future*...🙊
 ***
 *   Game Play : [Click here](https://ar021.github.io/Tetris/)
 *   Technologies used : HTML,CSS,JavaScript,Bootstrap
